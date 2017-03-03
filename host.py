@@ -1,7 +1,7 @@
 class Host:
-	def __init__(self,method,url,header,body,counter,time,prec):
+	def __init__(self,method,url,header,body,counter,prec):
 		self.method=method
-		self.first=True
+		self.urlt=url
 		stt=url.find('?')
 		if stt == -1:
 			self.url=url
@@ -10,9 +10,9 @@ class Host:
 		self.header=header
 		self.body=body
 		self.cnt=counter
-		self.time=time
 		self.prec=prec
-	
+		#self.time=[]
+
 	def statistics(self):
 		self.max=0
 		self.min=9223372036854775807
@@ -25,7 +25,7 @@ class Host:
 				self.max=i
 			if i < self.min:
 				self.min=i
-		
+
 		self.avg=sum/self.cnt
 		'''
 		sum=0

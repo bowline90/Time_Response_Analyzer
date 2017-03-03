@@ -13,7 +13,11 @@ def Usage(name):
 	print "\t--method <method>\tUse this method (default GET).\n\t\t\t\tThe method allowed are: GET, POST, PUT, DELETE, OPTIONS, HEAD."
 	print "\t--proxy <address:port>\tSend the requests througth this proxy. (Not yet implemented)"
 	print "\t--precision <decimal>\tNumber of decimal in statistics."
-	print "\t--nc\t\t\tDisable certificate verification."	
+	print "\t--nc\t\t\tDisable certificate verification."
+	print "\n"
+	print "\t-f\t\t\tActivate the fuzzer mode."
+	print "\t--dict <dictionary>\tDictionary file to fuzz (mandatory in fuzz mode)."
+	print "\t--escape <char>\t\tEscape character (default '$')."
 		
 
 def ParseOpt(argv):
@@ -31,9 +35,13 @@ def ParseOpt(argv):
 	settings['pre']=5
 	settings['cert']=True
 	
+	settings['fuzz']=False
+	settings['dict']=None
+	settings['escape']='$'
+	
 	
 	try:
-		opts, args = getopt.getopt(argv[1:],"hr:c:d:u:",["data=","header=","method=","proxy=","precision=","nocert"])
+		opts, args = getopt.getopt(argv[1:],"hfr:c:d:u:",["data=","header=","method=","proxy=","precision=","dict=","escape=","nocert"])
 	except getopt.GetoptError:
 		Usage(argv[0])
 		sys.exit(2)
@@ -61,6 +69,8 @@ def ParseOpt(argv):
 		elif opt in ("-u"):
 			url = arg
 			settings['url']=url
+		elif opt in ("-f"):
+			settings['fuzz']=True
 		elif opt in ("--data"):
 			data = arg
 			settings['dt']=data
@@ -84,4 +94,8 @@ def ParseOpt(argv):
 			settings['pre']=prec
 		elif opt in ("--nocert"):
 			settings['cert']=False
+		elif opt in ("--dict"):
+			settings['dict']=arg
+		elif opt in ("--escape"):
+			settings['escape']=arg
 	return settings

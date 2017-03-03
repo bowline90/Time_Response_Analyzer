@@ -2,24 +2,24 @@ import requests
 import time
 from host import Host
 
-def SendData(method,url,hd=None,dt=None,cnt=10,cert=False,delay=None):
+def SendData(host,delay,cnt,cert):
 	i=0
 	exp=[]
-	print method+" "+url
+	print host.method+" "+host.urlt
 	while i < cnt:
 		t=time.clock()
-		if method=='GET':
-			r=requests.get(url,headers=hd,data=dt, verify=cert)
-		elif method=='POST':
-			r=requests.post(url,headers=hd,data=dt, verify=cert)
-		elif method=='HEAD':
-			r=requests.head(url,headers=hd,data=dt, verify=cert)
-		elif method=='OPTIONS':
-			r=requests.options(url,headers=hd,data=dt, verify=cert)
-		elif method=='DELETE':
-			r=requests.delete(url,headers=hd,data=dt, verify=cert)
-		elif method=='PUT':
-			r=requests.put(url,headers=hd,data=dt, verify=cert)
+		if host.method=='GET':
+			r=requests.get(host.urlt,headers=host.header,data=host.body, verify=cert)
+		elif host.method=='POST':
+			r=requests.post(host.urlt,headers=host.header,data=host.body, verify=cert)
+		elif host.method=='HEAD':
+			r=requests.head(host.urlt,headers=host.header,data=host.body, verify=cert)
+		elif host.method=='OPTIONS':
+			r=requests.options(host.urlt,headers=host.header,data=host.body, verify=cert)
+		elif host.method=='DELETE':
+			r=requests.delete(host.urlt,headers=host.header,data=host.body, verify=cert)
+		elif host.method=='PUT':
+			r=requests.put(host.urlt,headers=host.header,data=host.body, verify=cert)
 		t1=time.clock()
 		exp.append(t1-t)
 		print "\tRequest #:"+str(i+1)+"\tReply status code:"+str(r.status_code)+"\tTime:"+str(t1-t)
@@ -28,6 +28,7 @@ def SendData(method,url,hd=None,dt=None,cnt=10,cert=False,delay=None):
 			time.sleep(delay)
 	return exp
 
+
 def ReadFile(name,cnt,cert,delay,prec):
 	f=open(name,"r")
 	arr=[]
@@ -35,12 +36,11 @@ def ReadFile(name,cnt,cert,delay,prec):
 
 	for line in f:
 		opt=line.split()
-		if line == "\n":
+		if line == "\n" or len(opt) == 0:
 			if (bd==False):
 				bd=True
 			else:
-				g=SendData(method,url,header,body,cnt,cert,delay)
-				k=Host(method,url,header,body,cnt,g,prec)
+				k=Host(method,url,header,body,cnt,prec)
 				arr.append(k)
 				bd=False
 		elif opt[0]=="GET" or opt[0]=="POST" or opt[0]=="HEAD" or opt[0]=="OPTIONS" or opt[0]=="PUT" or opt[0]=="DELETE":
@@ -61,8 +61,12 @@ def ReadFile(name,cnt,cert,delay,prec):
 				header[opt[0].replace(":","")]=str
 			else:
 				body+=line
-	
-	g=SendData(method,url,header,body,cnt,cert,delay)
-	k=Host(method,url,header,body,cnt,g,prec)
+
+	k=Host(method,url,header,body,cnt,prec)
 	arr.append(k)
+	'''
+	for i in arr:
+		g=SendData(i,delay,cnt,cert)
+		i.time=g
+	'''
 	return arr
