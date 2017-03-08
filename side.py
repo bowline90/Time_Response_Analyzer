@@ -8,13 +8,13 @@ from collections import namedtuple
 
 
 def PrintStat(array):
-	print "\n\n"
+	print ("\n\n")
 	t = PrettyTable(['Method', 'URL','# Request','MIN','MAX','AVG','RSD'])
 	for i in array:
 		i.statistics()
 		t.add_row(i.value())
 
-	print t
+	print (t)
 
 def escapeIndex(str,escape):
 	star=-1
@@ -58,14 +58,14 @@ def Fuzz(host,fz,escape,ret):
 
 def main(argv):
 	par=ParseOpt(argv)
-	print "Timing analysis v1.0.0 - A tool for timing side-channel analysis.\n\n"
+	print ("Timing analysis v1.0.0 - A tool for timing side-channel analysis.\n\n")
 	hs=[]
 	fz=[]
 	kll=None
 
 	if par['fuzz']==True:
 		if par['dict'] is None:
-			print "Error. Define a dictionary file using '--dict option'."
+			print ("Error. Define a dictionary file using '--dict option'.")
 			sys.exit()
 		f=open(par['dict'])
 		for line in f:

@@ -1,24 +1,24 @@
 import sys, getopt
 
 def Usage(name):
-	print "Timing analysis v1.0.0 - A tool for timing side-channel analysis."
-	print "Usage: "+name
-	print "\t-h \t\t\tPrint this help."
-	print "\t-r <file_name>\t\tRead from file the targets."
-	print "\t-c <counter>\t\tSpecify the number of request (default:10)."
-	print "\t-d <sec>\t\tWait <sec> between a request and anothers."
-	print "\t-u <url>\t\tSending the request at this url."
-	print "\t--data <raw_data>\tUsing this data as body of the request."
-	print "\t--header <raw_header>\tInsert this header in the request."
-	print "\t--method <method>\tUse this method (default GET).\n\t\t\t\tThe method allowed are: GET, POST, PUT, DELETE, OPTIONS, HEAD."
-	print "\t--proxy <address:port>\tSend the requests througth this proxy. (Not yet implemented)"
-	print "\t--precision <decimal>\tNumber of decimal in statistics."
-	print "\t--nc\t\t\tDisable certificate verification."
-	print "\n"
-	print "\t-f\t\t\tActivate the fuzzer mode."
-	print "\t--dict <dictionary>\tDictionary file to fuzz (mandatory in fuzz mode)."
-	print "\t--escape <char>\t\tEscape character (default '$')."
-		
+	print ("Timing analysis v1.0.0 - A tool for timing side-channel analysis.")
+	print ("Usage: "+name)
+	print ("\t-h \t\t\tPrint this help.")
+	print ("\t-r <file_name>\t\tRead from file the targets.")
+	print ("\t-c <counter>\t\tSpecify the number of request (default:10).")
+	print ("\t-d <sec>\t\tWait <sec> between a request and anothers.")
+	print ("\t-u <url>\t\tSending the request at this url.")
+	print ("\t--data <raw_data>\tUsing this data as body of the request.")
+	print ("\t--header <raw_header>\tInsert this header in the request.")
+	print ("\t--method <method>\tUse this method (default GET).\n\t\t\t\tThe method allowed are: GET, POST, PUT, DELETE, OPTIONS, HEAD.")
+	print ("\t--proxy <address:port>\tSend the requests througth this proxy. (Not yet implemented)")
+	print ("\t--precision <decimal>\tNumber of decimal in statistics.")
+	print ("\t--nc\t\t\tDisable certificate verification.")
+	print ("\n")
+	print ("\t-f\t\t\tActivate the fuzzer mode.")
+	print ("\t--dict <dictionary>\tDictionary file to fuzz (mandatory in fuzz mode).")
+	print ("\t--escape <char>\t\tEscape character (default '$').")
+
 
 def ParseOpt(argv):
 	settings={}
@@ -26,7 +26,7 @@ def ParseOpt(argv):
 	settings['cnt']=10
 	settings['dl']=None
 	settings['url']=None
-	
+
 	settings['data']=None
 	settings['hd']=None
 	settings['dt']=None
@@ -34,12 +34,12 @@ def ParseOpt(argv):
 	settings['pxy']=None
 	settings['pre']=5
 	settings['cert']=True
-	
+
 	settings['fuzz']=False
 	settings['dict']=None
 	settings['escape']='$'
-	
-	
+
+
 	try:
 		opts, args = getopt.getopt(argv[1:],"hfr:c:d:u:",["data=","header=","method=","proxy=","precision=","dict=","escape=","nocert"])
 	except getopt.GetoptError:

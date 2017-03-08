@@ -5,7 +5,7 @@ from host import Host
 def SendData(host,delay,cnt,cert):
 	i=0
 	exp=[]
-	print host.method+" "+host.urlt
+	print (host.method+" "+host.urlt)
 	while i < cnt:
 		t=time.clock()
 		if host.method=='GET':
@@ -22,7 +22,7 @@ def SendData(host,delay,cnt,cert):
 			r=requests.put(host.urlt,headers=host.header,data=host.body, verify=cert)
 		t1=time.clock()
 		exp.append(t1-t)
-		print "\tRequest #:"+str(i+1)+"\tReply status code:"+str(r.status_code)+"\tTime:"+str(t1-t)
+		print ("\tRequest #:"+str(i+1)+"\tReply status code:"+str(r.status_code)+"\tTime:"+str(t1-t))
 		i+=1
 		if delay!=None:
 			time.sleep(delay)
