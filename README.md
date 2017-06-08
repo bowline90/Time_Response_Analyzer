@@ -1,6 +1,6 @@
 # Time_Response_Analyzer
 Timing Analysis v1.0.0 
-Automatized toll for serialized timing side channel attacks on a remote webserver plus fuzzer
+Automatized tool for serialized timing side channel attacks on a remote webserver plus fuzzer
 
 ## Dependencies
 
